@@ -1,55 +1,40 @@
 #include <SFML/Graphics.hpp>
 
-class Personaje {
-public:
-    Personaje(sf::Vector2f position, sf::Color color) {
-        shape.setSize(sf::Vector2f(50, 50));
-        shape.setPosition(position);
-        shape.setFillColor(color);
-    }
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode(800, 700), "./assets/images/carretera.png");
 
-    void move(float offsetX, float offsetY) {
-        shape.move(offsetX, offsetY);
-    }
+    // Cargar texturas y crear sprites (código simplificado)
+    sf::Texture texturaCarretera;
+    texturaCarretera.loadFromFile("./assets/images/carretera.png");
+    sf::Sprite spriteCarretera(texturaCarretera);
+    // ... lo mismo para las otras texturas y sprites
 
-    void draw(sf::RenderWindow& window) {
-        window.draw(shape);
-    }
+    // Variables de desplazamiento
+    float velocidadDesplazamiento = 1.0f;
 
-private:
-    sf::RectangleShape shape;
-};
-
-double velocidad = 0.1;
-
-int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "DinoChrome");
-
-    Personaje character(sf::Vector2f(400, 300), sf::Color::Red);
-
-    while (window.isOpen()) {
+    while (window.isOpen())
+    {
         sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
                 window.close();
-            }
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            character.move(velocidad * -1, 0);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            character.move(velocidad, 0);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            character.move(0, velocidad * -1);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-            character.move(0, velocidad);
+        // Mover los sprites
+        spriteCarretera.move(0, velocidadDesplazamiento);
+        // ... mover los otros sprites
+
+        // Lógica de bucle para la carretera
+        if (spriteCarretera.getPosition().y > window.getSize().y) {
+            spriteCarretera.setPosition(0, -spriteCarretera.getTextureRect().height);
         }
 
-        window.clear();
-        character.draw(window);
+        // Dibujar los sprites
+       // window.clear();
+        window.draw(spriteCarretera);
+        // ... dibujar los otros sprites
         window.display();
     }
 
