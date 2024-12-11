@@ -5,7 +5,7 @@
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 700;
 const float CAR_SPEED = 0.2f;
-float ROAD_SPEED = 0.00001f;
+float ROAD_SPEED = 0.001f;
 const float ROAD_ACCELERATION = 0.00001f; 
 
 bool checkCollision(sf::Sprite& sprite, sf::RectangleShape& obstacle) {
@@ -38,7 +38,7 @@ int main() {
     std::vector<sf::RectangleShape> obstacles;
     sf::RectangleShape collisionZone;
     collisionZone.setPosition(0, 500);
-    collisionZone.setSize(sf::Vector2f(175, 50));
+    collisionZone.setSize(sf::Vector2f(150, 50));
     obstacles.push_back(collisionZone);
 
     // Posicionar la segunda carretera para crear un fondo infinito
@@ -89,7 +89,7 @@ int main() {
         window.draw(spriteCarretera);
         window.draw(sprite);
         //window.draw(spriteCarretera);
-      //  window.draw(collisionZone);
+       window.draw(collisionZone);
         window.display();
     }
 
