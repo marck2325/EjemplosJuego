@@ -4,18 +4,25 @@
 #include <SFML/Graphics.hpp>
 #include "carro.hpp"
 #include <vector>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <chrono>
+#include <thread>
+#include "Azul.hpp"
 
 class Juego {
 public:
-    Juego(sf::RenderWindow& ventana);
+    Juego(sf::RenderWindow& ventana); // Constructor que inicializa la ventana
+    void ejecutar();
     void inicializar();
-    void actualizar(float deltaTime, Carro& carro, std::vector<sf::Sprite>& carrosAzules, std::vector<sf::Sprite>& bidones);
+    void actualizar();
     void dibujar();
     int getScore() const;
     bool esJuegoActivo() const;
 
 private:
-    sf::RenderWindow& ventana;
+    sf::RenderWindow& ventana; // Referencia a la ventana de renderizado
     sf::Font fuente;
     sf::Text textoScore;
     sf::Text textoCuentaRegresiva;
@@ -24,8 +31,16 @@ private:
     float tiempoJuego;
     int score;
     bool juegoActivo;
+    int cantidadMaxima;
+    std::vector<Azul> carros;
+    int intervaloGeneracion;
+    std::chrono::steady_clock::time_point lastGenerationTime;
 
-    void manejarColisiones(Carro& carro, std::vector<sf::Sprite>& carrosAzules, std::vector<sf::Sprite>& bidones);
+    void generarCarro();
+    void moverCarros();
+    void controlarGeneracion();
+    void dibujarCarros();
+    int generarPosicionAleatoriaX();
 };
 
 #endif // JUEGO_HPP

@@ -1,23 +1,30 @@
-#ifndef CARRETERA_H
-#define CARRETERA_H
+#ifndef CARRETERA_HPP
+#define CARRETERA_HPP
 
 #include <SFML/Graphics.hpp>
-#include "carro.hpp"
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 
 class Carretera {
-public:
-    Carretera(sf::Texture& textura, sf::RenderWindow& window);
-    void mover(float velocidad, const Carro& carro);
-    void dibujar();
-    bool estaDetenida() const;
-    void detener();
-    void reanudar();
-
 private:
-    sf::Sprite sprite;
-    sf::Sprite sprite2;
-    sf::RenderWindow& window;
-    bool detenida;
+    float playerX;
+    float roadSpeed;
+    int score;
+    bool gameOver; // Nuevo miembro agregado
+    sf::Text scoreText;
+
+public:
+    Carretera();
+    void startGame(sf::RenderWindow& window, sf::Font& font);
+    void movePlayerLeft(float distance);
+    void movePlayerRight(float distance);
+    void update(const sf::Vector2u& windowSize, float deltaTime);
+    float getPlayerX() const;
+    const sf::Text& getScoreText() const;
+    void increaseScore();
+    bool isGameOver() const; // Método para verificar si el juego terminó
+    void mover(float velocidad, bool juegoActivo); // Control de velocidad
+    void setPosition(int xPos);
 };
 
-#endif
+#endif // CARRETERA_HPP

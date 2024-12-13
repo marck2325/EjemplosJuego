@@ -1,24 +1,21 @@
-#ifndef CARRO_H
-#define CARRO_H
-
-#include <SFML/Graphics.hpp>
-#include <iostream>
+// carro.hpp
+#ifndef CARRO_HPP
+#define CARRO_HPP
 
 class Carro {
 public:
-    Carro(sf::Texture& textura, float posicionInicialX, float posicionInicialY);
-    void mover(float velocidad, sf::Keyboard::Key A, sf::Keyboard::Key D);
-    bool verificarSalidaRango() const;
-    void dibujar(sf::RenderWindow& window);
-    sf::Sprite getSprite() const;
-    sf::FloatRect getBounds() const;
+    Carro();
+    void moveLeft(float delta);   // Ahora acepta un desplazamiento
+    void moveRight(float delta); // Ahora acepta un desplazamiento
+    int getX() const;
+    void resetScore();
+    void adjustScore(int delta);
+    int getScore() const;
+    void setPosition(int xPos);
 
 private:
-    sf::Sprite sprite;
-    sf::Sprite mensajePerdida;
-    float rangoMinX;
-    float rangoMaxX;
-    float posicionYConstante;
+    float x;  // Cambiado a float para permitir movimientos más suaves
+    int score;
 };
 
 #endif
