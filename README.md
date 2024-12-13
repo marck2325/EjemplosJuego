@@ -10,6 +10,141 @@ Cuando pierdes, aparecerá un mensaje de "Game Over" y podrás reiniciar la part
 
                                         ¡Buena suerte en tu carrera!
 
+![ready.png](assets/images/readyturbo.png)
+![carrera.png](assets/images/carrera.png)
+![gameOver.png](assets/images/gameOverturbo.png)
+
+Estructura del Juego
+Clases Principales
+Carro (Jugador)
+
+Propiedades:
+sprite: Un objeto sf::Sprite que representa la imagen del coche del jugador.
+x: La posición horizontal del coche en la pantalla.
+speed: La velocidad a la que se mueve el coche.
+Métodos:
+moveLeft(): Mueve el coche a la izquierda.
+moveRight(): Mueve el coche a la derecha.
+resetPosition(): Restaura la posición del coche al centro de la pantalla.
+Objeto (Obstáculos)
+
+Propiedades:
+sprite: Un objeto sf::Sprite que representa la imagen de un objeto (por ejemplo, bidones o coches).
+speed: La velocidad a la que el objeto cae (se mueve hacia abajo).
+Métodos:
+update(): Mueve el objeto hacia abajo en la pantalla y lo reinicia a una posición aleatoria si ha salido de la pantalla.
+Contador de tiempo
+
+Método:
+showCountdown(): Muestra una cuenta regresiva al inicio del juego antes de que comience la acción.
+Carretera
+
+La carretera está representada por dos sprites que se mueven hacia abajo para simular el movimiento del vehículo del jugador a lo largo de la carretera.
+Se maneja el movimiento de los coches y objetos en la pantalla.
+Los coches rojos (enemigos) se generan en intervalos de tiempo y se mueven hacia abajo.
+Interacción con Obstáculos
+
+El jugador gana puntos al recoger bidones verdes (greenBarrels) y pierde puntos al recoger bidones azules (blueBarrels).
+El juego termina si el jugador colisiona con un coche rojo (redCar).
+Flujo del Juego
+Inicio del Juego:
+
+El juego comienza con una cuenta regresiva que muestra "3", "2", "1" y luego "Ready Go!".
+Luego de la cuenta regresiva, el jugador puede mover su coche utilizando las teclas de flecha izquierda y derecha.
+Movimiento del Jugador:
+
+El coche del jugador se mueve a lo largo de la pantalla, pero se limita dentro de unos bordes predefinidos (X entre 118 y 670).
+
+@startuml
+
+class Carro {
+    - sf::Sprite sprite
+    - float x
+    - float speed
+    + Carro(const sf::Texture& texture, float startX, float startY, float speed)
+    + void moveLeft(float deltaTime)
+    + void moveRight(float deltaTime)
+    + const sf::Sprite& getSprite() const
+    + void resetPosition()
+}
+
+class Objeto {
+    - sf::Sprite sprite
+    - float speed
+    + Objeto(const sf::Texture& texture, float startX, float startY, float speed)
+    + void update(float deltaTime)
+    + const sf::Sprite& getSprite() const
+    + void resetPosition()
+}
+
+class Juego {
+    - int intervaloGeneracion
+    - std::chrono::steady_clock::time_point lastGenerationTime
+    - std::vector<Azul> carros
+    + Juego()
+    + void generarCarro()
+    + void moverCarros()
+    + void controlarGeneracion()
+    + void dibujarCarros()
+    + int generarPosicionAleatoriaX()
+    + void ejecutar()
+}
+
+class Carretera {
+    - bool gameOver
+    - Carro playerCar
+    - std::vector<Rojo> redCars
+    + Carretera()
+    + void movePlayerLeft(float delta)
+    + void movePlayerRight(float delta)
+    + int getPlayerX() const
+    + void checkCollision()
+    + void update(sf::Vector2u windowSize, float deltatime)
+    + Rojo& getRedCar()
+    + void startGame(sf::RenderWindow &window, sf::Font &font)
+    + bool isGameOver() const
+    + void mover(float velocidad, bool juegoActivo)
+}
+
+class Azul {
+    - int x
+    - int y
+    + Azul()
+    + int getX() const
+    + int getY() const
+    + void setPosition(int xPos, int yPos)
+}
+
+class Bidon {
+    - int x
+    - int y
+    + Bidon()
+    + int getX() const
+    + int getY() const
+    + void setPosition(int xPos, int yPos)
+    + void updatePosition(float deltaTime)
+}
+
+class Rojo {
+    - int x
+    - int y
+    + Rojo()
+    + void setPosition(int xPos, int yPos)
+    + void updatePosition(float deltaTime)
+}
+
+Carro --> Carretera : uses
+Carretera --> Rojo : manages
+Carretera --> Bidon : manages
+Carretera --> Azul : manages
+Carro --> Objeto : interacts
+
+@enduml
+
+![diagrama.png](assets/images/plant.png)
+
+
+
 El proyecto esta desarrollado sobre MinGW64 utilizando Msys2
 y como editor se esta utilizando Visual Studio Code
 
@@ -43,29 +178,11 @@ Cliente de escritorio para clonar el repositorio, descargar usando el siguiente 
 Para poder realizar commits de vscode es necesario tener instalado Git, descargarlo del siguiente [enlace](https://git-scm.com/).
 
 
-## Librerias utilizadas (Msys2)
-
-Ejecutar los siguientes comandos en la terminal de msys2 para instalar las dependencias necesarias
-
-### DevTools
-Compiladores y herramientas necesarias para el desarrollo.
-
-https://code.visualstudio.com/docs/cpp/config-mingw
-> pacman -S --needed base-devel mingw-w64-x86_64-toolchain
-
-### SFML
-https://packages.msys2.org/package/mingw-w64-x86_64-sfml
-> pacman -S mingw-w64-x86_64-sfml
-
-### Box2D simulaciones de fisica - C++
-https://box2d.org/documentation/
-https://packages.msys2.org/package/mingw-w64-x86_64-box2d?repo=mingw64
-pacman -S mingw-w64-x86_64-box2d
-
 ## Complementos necesarios VSCode
 
 - Material Icon
 - C/C++
 - PlantUML
 - GitGraph
-![gameOver.png](assets/images/gameOverturbo.png)
+
+
