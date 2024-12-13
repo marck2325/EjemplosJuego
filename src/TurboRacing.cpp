@@ -19,13 +19,13 @@ public:
 
     void moveLeft(float deltaTime) {
         x -= speed * deltaTime;
-        if (x < 100) x = 100; // Limitar el movimiento en X
+        if (x < 118) x = 118; // Limitar el movimiento en X
         sprite.setPosition(x, sprite.getPosition().y);
     }
 
     void moveRight(float deltaTime) {
         x += speed * deltaTime;
-        if (x > 700) x = 700; // Limitar el movimiento en X
+        if (x > 670) x = 670; // Limitar el movimiento en X
         sprite.setPosition(x, sprite.getPosition().y);
     }
 
@@ -52,14 +52,14 @@ public:
     void update(float deltaTime) {
         sprite.move(0, speed * deltaTime);
         if (sprite.getPosition().y > 600) {
-            sprite.setPosition(static_cast<float>(rand() % 600 + 100), -50);
+            sprite.setPosition(static_cast<float>(rand() % 552 + 118), -50);
         }
     }
 
     const sf::Sprite& getSprite() const { return sprite; }
 
     void resetPosition() {
-        sprite.setPosition(static_cast<float>(rand() % 600 + 100), -50);
+        sprite.setPosition(static_cast<float>(rand() % 552 + 118), -50);
     }
 };
 
@@ -67,7 +67,7 @@ void showCountdown(sf::RenderWindow& window, sf::Font& font) {
     sf::Text countdownText;
     countdownText.setFont(font);
     countdownText.setCharacterSize(50);
-    countdownText.setFillColor(sf::Color::White);
+    countdownText.setFillColor(sf::Color::Red);
     countdownText.setPosition(350, 250);
 
     std::vector<std::string> countdown = {"3", "2", "1", "Ready Go!"};
@@ -85,7 +85,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Car Game");
     sf::Texture playerTexture, greenBarrelTexture, blueBarrelTexture, redCarTexture, roadTexture;
     sf::RectangleShape background(sf::Vector2f(800, 600));
-background.setFillColor(sf::Color(50, 50, 50));
+    background.setFillColor(sf::Color(50, 50, 50));
 
     // Cargar texturas
     if (!playerTexture.loadFromFile("./assets/images/pixel_racecar_orange.png") ||
@@ -120,7 +120,7 @@ background.setFillColor(sf::Color(50, 50, 50));
     sf::Text scoreText;
     scoreText.setFont(font);
     scoreText.setCharacterSize(24);
-    scoreText.setFillColor(sf::Color::White);
+    scoreText.setFillColor(sf::Color::Black);
     scoreText.setPosition(10, 10);
 
     sf::Text gameOverText;
@@ -141,7 +141,7 @@ background.setFillColor(sf::Color(50, 50, 50));
     roadSprite1.setPosition(0, 0);
     roadSprite2.setPosition(0, -static_cast<float>(roadTexture.getSize().y));
 
-    float roadSpeed = 300.0f;
+    float roadSpeed = 400.0f;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -165,17 +165,12 @@ background.setFillColor(sf::Color(50, 50, 50));
                 for (auto& car : redCars) {
                     car.resetPosition();
                 }
-                
 
-              roadSprite1.setPosition(0, 0);
-            roadSprite2.setPosition(0, -static_cast<float>(roadTexture.getSize().y));
+                roadSprite1.setPosition(0, 0);
+                roadSprite2.setPosition(0, -static_cast<float>(roadTexture.getSize().y));
                 showCountdown(window, font);
             }
         }
-        std::cout << "Road texture size: " << roadTexture.getSize().x << ", " << roadTexture.getSize().y << std::endl;
-
-std::cout << "RoadSprite1 Y: " << roadSprite1.getPosition().y << std::endl;
-std::cout << "RoadSprite2 Y: " << roadSprite2.getPosition().y << std::endl;
 
         if (isGameOver) {
             window.clear();
@@ -226,9 +221,6 @@ std::cout << "RoadSprite2 Y: " << roadSprite2.getPosition().y << std::endl;
             roadSprite2.setPosition(0, roadSprite1.getPosition().y - roadTexture.getSize().y);
         }
 
-        // Dibujar carretera
-
-
         scoreText.setString("Score: " + std::to_string(score));
 
         window.clear();
@@ -252,4 +244,3 @@ std::cout << "RoadSprite2 Y: " << roadSprite2.getPosition().y << std::endl;
 
     return 0;
 }
-

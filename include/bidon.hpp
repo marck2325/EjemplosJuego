@@ -1,7 +1,8 @@
 #ifndef BIDON_HPP
 #define BIDON_HPP
 
-class Bidon {
+class Bidon
+{
 private:
     int x; // Posición en X
     int y; // Posición en Y

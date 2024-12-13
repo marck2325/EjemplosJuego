@@ -1,7 +1,8 @@
 #ifndef AZUL_HPP
 #define AZUL_HPP
 
-class Azul {
+class Azul
+{
 public:
     Azul();
     int getX() const;

@@ -11,9 +11,10 @@
 #include <thread>
 #include "Azul.hpp"
 
-class Juego {
+class Juego
+{
 public:
-    Juego(sf::RenderWindow& ventana); // Constructor que inicializa la ventana
+    Juego(sf::RenderWindow &ventana); // Constructor que inicializa la ventana
     void ejecutar();
     void inicializar();
     void actualizar();
@@ -22,7 +23,7 @@ public:
     bool esJuegoActivo() const;
 
 private:
-    sf::RenderWindow& ventana; // Referencia a la ventana de renderizado
+    sf::RenderWindow &ventana; // Referencia a la ventana de renderizado
     sf::Font fuente;
     sf::Text textoScore;
     sf::Text textoCuentaRegresiva;

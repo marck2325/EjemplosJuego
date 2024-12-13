@@ -2,10 +2,11 @@
 #ifndef CARRO_HPP
 #define CARRO_HPP
 
-class Carro {
+class Carro
+{
 public:
     Carro();
-    void moveLeft(float delta);   // Ahora acepta un desplazamiento
+    void moveLeft(float delta);  // Ahora acepta un desplazamiento
     void moveRight(float delta); // Ahora acepta un desplazamiento
     int getX() const;
     void resetScore();
@@ -14,7 +15,7 @@ public:
     void setPosition(int xPos);
 
 private:
-    float x;  // Cambiado a float para permitir movimientos más suaves
+    float x; // Cambiado a float para permitir movimientos más suaves
     int score;
 };
 
