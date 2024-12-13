@@ -1,18 +1,23 @@
-# EjemplosJuego
+# Turbo Racing
+Descripción del Juego de Carreras
+
+El juego es un simulador de carreras en tercera persona. El jugador controla un auto que puede moverse de izquierda a derecha para evitar obstáculos y recolectar bidones de gasolina. Hay tres tipos de obstáculos:
+
+      Bidones de gasolina: sumarán 20 puntos al puntaje cada vez que los toques.
+      Carros azules: restarán 20 puntos al puntaje si los chocas.
+      Carros rojos: te harán perder la partida al chocar con ellos.
+Cuando pierdes, aparecerá un mensaje de "Game Over" y podrás reiniciar la partida presionando la tecla R.                                      
+
+                                        ¡Buena suerte en tu carrera!
 
 El proyecto esta desarrollado sobre MinGW64 utilizando Msys2
 y como editor se esta utilizando Visual Studio Code
 
-## Como ejecutar los ejemplos
+## Como ejecutar el juego:
 
 Instalar todas las dependencias descritas abajo y dentro de una terminal de vscode ejecutar:
 
-> make run'NombreEjecutable'
-
-Por ejemplo para ejecutar '00_Ventana.cpp' correr el comando en la terminal de vscode:
-
-> make run00_Ventana
-
+> make run
 
 ## Programas necesarios
 
@@ -63,3 +68,4 @@ pacman -S mingw-w64-x86_64-box2d
 - C/C++
 - PlantUML
 - GitGraph
+![gameOver.png](assets/images/gameOverturbo.png)
